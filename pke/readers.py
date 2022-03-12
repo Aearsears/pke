@@ -54,7 +54,8 @@ class RawTextReader(Reader):
         if nlp is None:
 
             # list installed models
-            installed_models = [m for m in spacy.util.get_installed_models() if m[:2] == self.language]
+            # installed_models = [m for m in spacy.util.get_installed_models() if m[:2] == self.language]
+            installed_models = ['en_core_web_sm'] 
 
             # select first model for the language
             if len(installed_models):
@@ -67,7 +68,7 @@ class RawTextReader(Reader):
                 return
 
             # add the sentence splitter
-            nlp.add_pipe('sentencizer')
+            nlp.add_pipe(nlp.create_pipe('sentencizer'))
 
         # Fix for non splitting words with hyphens with spacy taken from
         # https://stackoverflow.com/questions/43388476/how-could-spacy-tokenize-hashtag-as-a-whole
